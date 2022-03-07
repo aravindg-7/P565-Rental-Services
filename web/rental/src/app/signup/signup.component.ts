@@ -15,11 +15,10 @@ import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
 
 export class SignupComponent implements OnInit {
 
-  /** A hero's name can't match the given regular expression */
+
 
 
   signUpForm: FormGroup = new FormGroup({
-    username: new FormControl(''),
     firstname: new FormControl(''),
     lastname: new FormControl(''),
     password: new FormControl(''),
@@ -42,9 +41,6 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.signUpForm = this.formbuilder.group({
-      username : ['',[
-        Validators.required,
-      ]],
       firstname:['',[
         Validators.required
       ]],
@@ -70,9 +66,6 @@ export class SignupComponent implements OnInit {
 
    get f(): { [key: string]: AbstractControl } {
     return this.signUpForm.controls;
-  }
-  get username() {
-    return this.signUpForm.get('username');
   }
   get firstname() {
     return this.signUpForm.get('firstname');
@@ -101,52 +94,70 @@ export class SignupComponent implements OnInit {
     return this,this.signUpForm.get('email');
   }
 
-//   public findInvalidControls() {
-//     const invalid = [];
-//     const controls = this.signUpForm.controls;
-//     for (const name in controls) {
-//         if (controls[name].invalid) {
-//             invalid.push(name);
-//         }
-//     }
-//     console.log(invalid);
-//     return invalid;
-// }
+  public findInvalidControls() {
+    const invalid = [];
+    const controls = this.signUpForm.controls;
+    for (const name in controls) {
+        if (controls[name].invalid) {
+            invalid.push(name);
+        }
+    }
+    console.log(invalid);
+    return invalid;
+}
 
   onSubmit(){
 
-    // if (this.signUpForm.invalid) {
-    //   this.findInvalidControls();
-    //   return;
-    // }
+    if (this.signUpForm.invalid) {
+      this.findInvalidControls();
+      return;
+    }
       this.formSubmitted = true;
+
+      let username = this.signUpForm.value['email'].split("@",1);
+
   
-      const newUser:user = { username: this.signUpForm.value['username'], 
+      const newUser:user = { username: username[0], 
                         firstName: this.signUpForm.value['firstname'], 
                         lastName: this.signUpForm.value['lastname'], 
                         password: this.signUpForm.value['password'],
                         age: this.signUpForm.value['age'],
                         email:this.signUpForm.value['email'],
                         pincode:this.signUpForm.value['pincode'],
-                        contactno:this.signUpForm.value['contactnumber'],
+                        contact:this.signUpForm.value['contactnumber'],
   
                        };
                        console.log(newUser),
-      this.userService.addUser(newUser).subscribe( data => {
-          // console.log("new user added: "+data);
-          // this.userService.userList.push(newUser);
-          // console.log(this.userService.userList);
+      // this.userService.addUser(newUser).subscribe( data => {
+      //     // console.log("new user added: "+data);
+      //     // this.userService.userList.push(newUser);
+      //     // console.log(this.userService.userList);
+      //     this.status=false;
+      //     this.route.navigate(['login'])
+      // },
+      // (error:any)=>{
+      //   this.status=true;
+      //   this.error = error.error.message;
+      //     if (error.error.errors != null) {
+      //       this.error = error.error.errors[0];
+      //     }
+      // },
+      // );
+
+      this.userService.addUser(newUser).subscribe({
+        error: (error)=> {
+          this.status=true;
+          this.error = error.error.message;
+            if (error.error.errors != null) {
+              this.error = error.error.errors[0];
+            }
+          },
+        next: (data) => {
           this.status=false;
           this.route.navigate(['login'])
-      },
-      (error:any)=>{
-        this.status=true;
-        this.error = error.error.message;
-          if (error.error.errors != null) {
-            this.error = error.error.errors[0];
-          }
-      },
-      );
+        }
+
+      });
       this.signUpForm.reset();
   
     }

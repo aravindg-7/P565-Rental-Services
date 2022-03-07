@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   }
   onsubmit()
   {
-    throw new Error('Method not implemented.');
+    this.authService.authenticateUser(this.loginForm.value)
   }
 
 }

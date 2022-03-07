@@ -1,6 +1,5 @@
 package com.rental.repository;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.rental.model.User;

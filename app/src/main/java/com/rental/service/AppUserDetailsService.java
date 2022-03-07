@@ -7,36 +7,55 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 import com.rental.model.User;
 import com.rental.repository.UserRepository;
+import com.rental.security.AppUser;
 
 
 @Service
-public class AppUserDetailsService {
+public class AppUserDetailsService implements UserDetailsService {
 	
 	
 	@Autowired
 	UserRepository userrepository;
+		
+	
+	public AppUserDetailsService(UserRepository userrepository) {
+		super();
+		this.userrepository = userrepository;
+	}
+	
+	@Override
+	public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+		User u=userrepository.findByUsername(name);
+		System.out.println("in");
+		if(u== null){
+			throw new UsernameNotFoundException("no user");
+		}
+		else
+		{
+			System.out.println("user is "+u.getUsername());
+		}
+		AppUser au= new AppUser(u);
+		return au;
+	}
 	
 	
 	public boolean signup(User newuser){
-//		User u=userrepository.findByUsername(newuser.getUsername());
-//		if(u==null)
-//		{
-		String password=newuser.getPassword();
-		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
-		String newpassword=encoder.encode(password);
-//			Role role= rolerepository.findById(1).get();
-//			List<Role> roleset= new ArrayList<Role>();
-//			roleset.add(role);
-//			newuser.setRoles(roleset);
-		newuser.setPassword(newpassword);
-		userrepository.save(newuser);
-		return true;
-//		}
-//		else
-//			return false;
+		User u=userrepository.findByUsername(newuser.getUsername());
+		if(u==null)
+		{
+			String password=newuser.getPassword();
+			BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+			String newpassword=encoder.encode(password);
+			newuser.setRole("USER");
+			newuser.setPassword(newpassword);
+			userrepository.save(newuser);
+			System.out.println("user is "+newuser);
+			return true;
+		}
+		else
+			return false;
 	}
 
 

@@ -12,7 +12,7 @@
                 <a class="nav-link" routerLink="/search">Menu</a>
             </li>
             <li class="nav-item active" *ngIf="loggedIn()">
-                <!---a class="nav-link" href="#"><i class="material-icons">person </i> {{this.authService.loggedInUser}}</a>--->
+                <a class="nav-link" href="#"><i class="material-icons">person </i> {{this.loggedInuser}}</a>
             </li>
             <li class="nav-item active" *ngIf="loggedIn()" (click)="clicked()">
                 <a class="nav-link" routerLink="/home">Logout</a>

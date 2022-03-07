@@ -7,5 +7,5 @@ export interface user
     age:number;
     email:string;
     pincode:number;
-    contactno:string
+    contact:string
 }

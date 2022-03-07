@@ -7,11 +7,11 @@
           <div class="alert-danger col-12 px-auto" *ngIf="status">
             {{error}}
           </div>
-                    <div class="col-md-6 col-xs-12">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" placeholder="Enter Username" formControlName="username" id="username">
-          <div class="text-danger" *ngIf="username?.invalid && username?.errors?.['required'] && username?.touched">Username is required</div>
-                    </div>
+                 <div class="col-md-6 col-xs-12  mt-3">
+            <label for="email">Email</label> 
+            <input type="email" class="form-control" placeholder="Enter Email" formControlName="email" id="email">
+            <div class="text-danger" *ngIf="email?.invalid && email?.errors?.['required'] && email?.touched">Email is required</div>
+                      </div>
                 </div>
                 <div class="row ml-5 mr-5">
                     <div class="col-md-6 col-xs-12 mt-3">
@@ -47,6 +47,13 @@
           <div class="text-danger" *ngIf="age?.invalid && age?.errors?.['required'] && age?.touched">Age is required</div>
           <div class="text-danger" *ngIf="age?.errors?.['min']||age?.errors?.['max']">Not a valid age</div>           
         </div>
+            <div class="col-md-6 col-xs-12 mt-3">
+            <label for="pincode">Pincode</label> 
+            <input type="text" class="form-control" placeholder="Enter pincode" formControlName="pincode" id="pincode">
+            <div class="text-danger" *ngIf="pincode?.invalid && pincode?.errors?.['required'] && pincode?.touched">Pincode is required</div>
+            <div class="text-danger" *ngIf="pincode?.errors?.['minlength']||pincode?.errors?.['maxLength']">Not a valid pincode</div>
+
+            </div>
                 
             </div>
                 <div class="row ml-5 mr-5">
@@ -56,23 +63,9 @@
           <div class="text-danger" *ngIf="contactnumber?.invalid && contactnumber?.errors?.['required'] && contactnumber?.touched">Contact number is required</div>
           <div class="text-danger" *ngIf="contactnumber?.errors?.['minlength']">Not a valid number</div>            
         </div>
-                    <div class="col-md-6 col-xs-12  mt-3">
-          <label for="email">Email</label> 
-          <input type="email" class="form-control" placeholder="Enter Email" formControlName="email" id="email">
-          <div class="text-danger" *ngIf="email?.invalid && email?.errors?.['required'] && email?.touched">Email is required</div>
-                    </div>
+                    
                 </div>
 
-                    <div class="row ml-5 mr-5">
-                            <div class="col-md-6 col-xs-12 mt-3">
-                                    <label for="pincode">Pincode</label> 
-          <input type="text" class="form-control" placeholder="Enter pincode" formControlName="pincode" id="pincode">
-          <div class="text-danger" *ngIf="pincode?.invalid && pincode?.errors?.['required'] && pincode?.touched">Pincode is required</div>
-          <div class="text-danger" *ngIf="pincode?.errors?.['minlength']||pincode?.errors?.['maxLength']">Not a valid pincode</div>
-              
-        </div>
-                        
-                        </div>
                
                 <div class="row mt-3 ml-5 mr-5 mb-5">
                     

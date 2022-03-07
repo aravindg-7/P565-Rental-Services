@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthserviceService } from '../authservice.service';
 
 @Component({
   selector: 'app-header',
@@ -7,17 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(public router: Router,private authService:AuthserviceService) { }
   isLoggedIn:boolean = false
+  loggedInuser:string = "";
   ngOnInit(): void {
   }
   loggedIn():boolean {
-      this.isLoggedIn = false;
-      return false
+    if(this.authService.loggedIn){
+      this.isLoggedIn = true;
+      this.loggedInuser = this.authService.loggedInUser;
+      return true
     }
+    else{
+      this.isLoggedIn = false;
+      return false;
+    }
+  }
   clicked(){
-    // this.foodService.clickedOnAdd = false;
-    // this.foodService.addedToCart = false;
+    this.authService.logout();
   }
 
 }

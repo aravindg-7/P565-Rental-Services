@@ -1,5 +1,7 @@
 package com.rental.model;
 
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +13,14 @@ import jakarta.persistence.Table;
 @Table(name="user")
 public class User {
 	
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", password=" + password + ", email=" + email + ", age=" + age + ", contact=" + contact + ", pincode="
+				+ pincode + ", role=" + role + "]";
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="us_id")
@@ -34,55 +44,97 @@ public class User {
 	@Column(name="us_age")
 	private int age;
 	
+	@Column(name="us_contact_no")
+	private String contact;
+	
 	@Column(name="us_pincode")
 	private int pincode;
+	
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	@Column(name="us_role")
+	private String role;
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getFirstName() {
 		return firstName;
 	}
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public int getAge() {
 		return age;
 	}
+
 	public void setAge(int age) {
 		this.age = age;
 	}
+
 	public int getPincode() {
 		return pincode;
 	}
+
 	public void setPincode(int pincode) {
 		this.pincode = pincode;
 	}
+	
+	public String getRole() {
+		return role;
+	}
 
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	
 }
+	
+	
+	
