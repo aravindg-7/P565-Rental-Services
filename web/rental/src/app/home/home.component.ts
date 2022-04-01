@@ -5,6 +5,7 @@ import { AuthserviceService } from '../authservice.service';
 import { GMapComponent } from '../g-map/g-map.component';
 import { product } from '../product';
 import { SearchserviceService } from '../searchservice.service';
+import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +20,8 @@ export class HomeComponent implements OnInit {
   loggedIn: boolean = false;
   RateKey: number = 0;
   searchText: string = "";
-  options = ['Rating >= 1', 'Rating >= 2', 'Rating >= 3', 'Rating >= 4']
-
+  options = ['Rating 1 & above', 'Rating 2 & above', 'Rating 3 & above', 'Rating 4 & above']
+  bsModalRef?: BsModalRef;
   mapOptions = {
     center: { lat: 40, lng: -20 },
     zoom: 4
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit {
   constructor(
     public router: Router,
     private authService: AuthserviceService,
-    private searchservice: SearchserviceService, private dialog: MatDialog) {
+    private searchservice: SearchserviceService, private dialog: MatDialog, private modalService: BsModalService) {
     if (authService.loggedIn) {
       this.loggedIn = true;
     }
@@ -108,9 +109,17 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  openMaps() {
-    //TODO Implement
-    const dialogRef = this.dialog.open(GMapComponent);
+  openMaps(lat: number, long: number) {
+    const options = {
+      center: {
+        lat: lat,
+        lng: long
+      },
+      zoom: 10
+    }
+    //console.log(options)
+    this.bsModalRef = this.modalService.show(GMapComponent);
+    this.bsModalRef.content.options = options;
+    // const dialogRef = this.dialog.open(GMapComponent);
   }
-
 }

@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.rental.repository.UserRepository;
+import com.rental.repository.ProductRepository;
+
 
 @EnableJpaRepositories(basePackages = {
 	    "com.rental.repository"
@@ -18,12 +20,16 @@ public class RentalApplication {
 	@Autowired
 	private static UserRepository urepository;
 	
+	@Autowired
+	private static ProductRepository prepository;
+	
 
 	
 
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(RentalApplication.class, args);
 		urepository=context.getBean(UserRepository.class);
+		prepository=context.getBean(ProductRepository.class);
 	}
 
 }

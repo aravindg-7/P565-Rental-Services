@@ -1,7 +1,7 @@
-<p>g-map works!</p>
-<div mat-dialog-actions>
-    <button mat-button mat-dialog-close>Close</button>
-  </div>
+<!-- <p>g-map works!</p> -->
 <div *ngIf="apiLoaded | async">
-    <google-map [options]="options"></google-map>
+    <google-map [options]="options">
+        <map-marker [options]="options">
+        </map-marker>
+    </google-map>
 </div>
