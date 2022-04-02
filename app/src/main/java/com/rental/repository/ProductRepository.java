@@ -14,5 +14,9 @@ public interface ProductRepository extends CrudRepository<Product,Integer> {
 	List<Product>findByCategory(String category);
 	
 	List<Product>findByRatingGreaterThanEqual(int rating);
+	
+//	List<Product>findByOwner(String owner);
+	
+	List<Product>findByBrand(String brand);
 
 }

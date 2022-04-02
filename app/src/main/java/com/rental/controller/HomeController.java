@@ -28,8 +28,6 @@ public class HomeController {
 		prodservice.addProduct(product);
 	}
 	
-	
-	
 	@GetMapping("/all")
 	public List<Product> getProducts(){
 		return prodservice.getProducts();
@@ -43,6 +41,16 @@ public class HomeController {
 	@GetMapping("/rating/{id}")
 	public List<Product> getByRating(@PathVariable int id){
 		return prodservice.getByRating(id);
+	}
+	
+//	@GetMapping("/owner/{id}")
+//	public List<Product> getByOwner(@PathVariable String id){
+//		return prodservice.getByOwner(id);
+//	}
+	
+	@GetMapping("/brand/{id}")
+	public List<Product> getByBrand(@PathVariable String id){
+		return prodservice.getByBrand(id);
 	}
 
 }

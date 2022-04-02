@@ -31,6 +31,19 @@ public class Product {
 	@Column(name = "pr_category")
 	private String category;
 	
+	@Column(name = "pr_owner")
+	private String owner;
+	
+	
+	@Column(name = "pr_brand")
+	private String brand;
+	
+	@Column(name = "pr_long")
+	private float prlong;
+	
+	@Column(name = "pr_lat")
+	private float prlat;
+	
 	//TODO add userlist and join
 	
 	
@@ -42,7 +55,7 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", productName=" + productName + ", price=" + price + ", image=" + image
-				+ ", rating=" + rating + ", category=" + category + "]";
+				+ ", rating=" + rating + ", category=" + category + ", owner=" + owner + ", brand=" + brand +  ", prlat=" + prlat + ", prlong=" + prlong + "]";
 	}
 
 	public void setProductName(String productName) {
@@ -56,6 +69,24 @@ public class Product {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public float getPrlong() {
+		return prlong;
+	}
+
+
+	public void setPrlong(int prlong) {
+		this.prlong = prlong;
+	}
+	
+	public float getPrlat() {
+		return prlat;
+	}
+
+
+	public void setPrlat(int prlat) {
+		this.prlat = prlat;
 	}
 
 	public int getPrice() {
@@ -88,6 +119,22 @@ public class Product {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+	
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 	
 	

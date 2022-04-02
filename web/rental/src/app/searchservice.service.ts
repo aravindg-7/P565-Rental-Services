@@ -20,4 +20,8 @@ export class SearchserviceService {
   getProductByRating(id:number):Observable<any> {
     return this.http.get<product[]>(environment.baseUrl+"/home/rating/"+id);
   }
+
+  getProductByBrand(id:string):Observable<any> {
+    return this.http.get<product[]>(environment.baseUrl+"/home/brand/"+id);
+  }
 }
