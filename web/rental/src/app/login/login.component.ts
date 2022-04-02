@@ -12,7 +12,16 @@ export class LoginComponent implements OnInit {
 
   loginForm:FormGroup
   validCredentials:boolean = true
+  gsignin:boolean = false
+  private auth2:any;
   constructor(private formBuild:FormBuilder,private router:Router,private authService:AuthserviceService){
+
+    gapi.load("auth2",() =>{
+      this.auth2 = gapi.auth2.init({
+        client_id: "533316988976-r8quh4cff2bhredgi4blfl38gje4l1s1.apps.googleusercontent.com"
+      })
+    })
+
     this.loginForm = this.formBuild.group({
       username: ['',[
         Validators.required
@@ -21,9 +30,11 @@ export class LoginComponent implements OnInit {
         Validators.required
       ]]
     })
+    
   }
 
   ngOnInit():void {
+
 
     
   }
@@ -38,7 +49,16 @@ export class LoginComponent implements OnInit {
   }
   onsubmit()
   {
+    console.log("submit");
     this.authService.authenticateUser(this.loginForm.value)
+  
   }
+  onSignIn() {
+ 
+    this.authService.googlesignin();
+
+  }
+
+
 
 }

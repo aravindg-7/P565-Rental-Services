@@ -21,16 +21,25 @@
                     </div>
                 </div>
                 <div class="row mt-5 ml-5 mr-5 mb-5">
-                    <div class="col-6">
+                    <div class="col-4">
                         <button type="submit" class="btn custbtn">Login</button>
                     </div>
-                    <div class="col">
+                    <div class="col-4">
                         <div>
                             New Here? <button (click)="toSignup()" class="btn custbtn">Signup</button>
                         </div>
                     </div>
+                    <!-- <div class="col">
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+                    </div> -->
                 </div>
             </form>
+            <div class="row">
+                <div>
+                     <button (click)="onSignIn()" class="login-with-google-btn">Sign In with Google</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

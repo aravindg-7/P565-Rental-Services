@@ -43,7 +43,7 @@ public class AppUserDetailsService implements UserDetailsService {
 	
 	public boolean signup(User newuser){
 		User u=userrepository.findByUsername(newuser.getUsername());
-		if(u==null)
+		if(u==null && newuser.getPassword() != null)
 		{
 			String password=newuser.getPassword();
 			BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
@@ -54,8 +54,19 @@ public class AppUserDetailsService implements UserDetailsService {
 			System.out.println("user is "+newuser);
 			return true;
 		}
-		else
-			return false;
+		if( u==null && newuser.getPassword() == null)
+		{
+
+			newuser.setRole("GOOGLE_USER");
+			userrepository.save(newuser);
+			System.out.println("user is "+newuser);
+			return true;
+		}
+		if (newuser.getPassword() == null)
+		{
+			return true; //google sign in
+		}
+		return false;
 	}
 
 
