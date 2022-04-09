@@ -86,7 +86,8 @@
                 <div class="card-text">
                     <div class="badge bg-primary">Price</div>
                     <!-- <span class="material-icons">attach_money</span> -->
-                    <span class="float-right">${{product.price}}</span>
+                    <button (click)="makePayment(product.price)" class="btn btn-primary">Pay ${{product.price}}</button>
+                    <!-- <span class="float-right">${{product.price}}</span> -->
                 </div>
                 <div class="card-text">
                     <div class="badge bg-secondary" (click)="openMaps(product.prlat, product.prlong)">View on Map</div>
