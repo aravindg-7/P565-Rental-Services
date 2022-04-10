@@ -39,8 +39,9 @@ public class ProductService {
 		return prodrepo.findByBrand(brand);
 	}
 
-	public void addProduct(Product product) {
-		prodrepo.save(product);
+	public Product addProduct(Product product) {
+		return prodrepo.save(product);
+		
 	}
 
 }

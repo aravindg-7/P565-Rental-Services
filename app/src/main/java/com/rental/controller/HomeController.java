@@ -23,9 +23,10 @@ public class HomeController {
 	private ProductService prodservice;
 	
 	
-	@PostMapping("/product")
-	public void addProduct(@RequestBody @Validated Product product) {
+	@PostMapping("/addproduct")
+	public Product addProduct(@RequestBody @Validated Product product) {
 		prodservice.addProduct(product);
+		return product;
 	}
 	
 	@GetMapping("/all")
