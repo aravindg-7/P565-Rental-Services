@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+//import {} from "googlemaps";
 
 @Component({
   selector: 'g-map',
@@ -24,7 +25,10 @@ export class GMapComponent implements OnInit {
           map(() => true),
           catchError(() => of(false)),
         );
+        
   }
+
+  
   ngOnInit(): void {
   }
 }
