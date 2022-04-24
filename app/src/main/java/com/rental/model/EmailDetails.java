@@ -13,6 +13,10 @@ public class EmailDetails {
     public String getRecipient() {
 		return recipient;
 	}
+	@Override
+	public String toString() {
+		return "EmailDetails [recipient=" + recipient + ", msgBody=" + msgBody + ", subject=" + subject + "]";
+	}
 	public void getRecipient(String recipient) {
 		this.recipient = recipient;
 	}
