@@ -12,6 +12,8 @@ export class UserserviceService {
   constructor(private http: HttpClient) { }
 
   addUser(newUser: user) {
+
+    console.log(newUser);
     return this.http.post<boolean>(environment.baseUrl+"/users",newUser);
 
   }
