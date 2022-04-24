@@ -14,9 +14,9 @@ import { GMapComponent } from './g-map/g-map.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import {MatDialogModule} from '@angular/material/dialog';
 import { ModalModule } from 'ngx-bootstrap/modal';
+//import { Awss3Component } from './product/awss3.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     LoginComponent,
     SignupComponent,
     AddproductComponent,
-    GMapComponent
+    GMapComponent,
+    AddproductComponent
   ],
   imports: [
     BrowserModule,

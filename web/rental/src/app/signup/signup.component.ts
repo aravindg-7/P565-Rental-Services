@@ -14,10 +14,7 @@ import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
 })
 
 export class SignupComponent implements OnInit {
-
-
-
-
+  
   signUpForm: FormGroup = new FormGroup({
     firstname: new FormControl(''),
     lastname: new FormControl(''),
