@@ -28,11 +28,6 @@ public class ProductService {
 		
 		return prodrepo.findByRatingGreaterThanEqual(rating);
 	}
-//	
-//	public List<Product> getByOwner(String owner){
-//			
-//			return prodrepo.findByOwner(owner);
-//		}
 
 	public List<Product> getByBrand(String brand){
 		

@@ -23,8 +23,9 @@ export class AddproductComponent implements OnInit {
     rating: new FormControl(),
     brand: new FormControl(),
     owner: new FormControl(),
-    prlat: new FormControl(),
-    prlong: new FormControl(),
+    // prlat: new FormControl(),
+    // prlong: new FormControl(),
+    address: new FormControl(),
   })
   formSubmitted: boolean;
   error:string;
@@ -85,11 +86,14 @@ this.selectedFiles = FILE;
   get owner() {
     return this.addProductForm.get('owner');
   }
-  get prlat() {
-    return this.addProductForm.get('prlat');
-  }
-  get prlong() {
-    return this.addProductForm.get('prlong');
+  // get prlat() {
+  //   return this.addProductForm.get('prlat');
+  // }
+  // get prlong() {
+  //   return this.addProductForm.get('prlong');
+  // }
+  get address(){
+    return this.addProductForm.get('address');
   }
 
   public findInvalidControls() {
@@ -113,9 +117,6 @@ this.selectedFiles = FILE;
     }
       this.formSubmitted = true;
 
-      //let username = this.addProductForm.value['email'].split("@",1);
-
-  
       const newProduct:product = { 
                         productName: this.addProductForm.value['productName'], 
                         category: this.addProductForm.value['category'], 
@@ -124,8 +125,8 @@ this.selectedFiles = FILE;
                         rating: this.addProductForm.value['rating'],
                         brand: this.addProductForm.value['brand'],
                         owner:this.addProductForm.value['owner'],
-                        prlong:this.addProductForm.value['prlong'],
-                        prlat:this.addProductForm.value['prlat'],
+                        //prlong:this.addProductForm.value['prlong'],
+                        address:this.addProductForm.value['address'],
   
                        };
                        console.log(newProduct),

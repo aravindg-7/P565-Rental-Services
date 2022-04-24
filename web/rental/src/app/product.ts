@@ -6,6 +6,7 @@ export interface product {
     rating:number;
     brand:string;
     owner:string;
-    prlat:number;
-    prlong:number;
+    // prlat:number;
+    // prlong:number;
+    address:string;
 }

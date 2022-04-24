@@ -48,9 +48,6 @@ export class HomeComponent implements OnInit {
     }
   }
   
-  
-  
-  
   sendMail(d: data){
     console.log(d);
     return this.http.post<boolean>(environment.baseUrl+"/sendMail",d);
@@ -60,7 +57,7 @@ export class HomeComponent implements OnInit {
     this.locationService.getLocation(term).subscribe({
       next: (data) => {
         this.address = data;
-        console.log(this.address)
+        // console.log(this.address)
         // console.log("Response Lat Long")
         // console.log(this.address.results[0].geometry.location.lat)
         // console.log(this.address.results[0].geometry.location.lng)
@@ -98,8 +95,8 @@ export class HomeComponent implements OnInit {
       key: 'pk_test_51KmST7DfkwakJlGdB2G2VHswVU5cGa1zWYdMGh2hgwVMsQyOgT0dgrIgdBrR5KRQxgPYL9zNhvItfQ50TfyHzxnl005YXFQU0N',
       locale: 'auto',
       token: function (stripeToken: any) {
-        console.log(stripeToken);
-        alert('Stripe token generated!');
+        //console.log(stripeToken);
+        alert('Payment Successful!');
       },
     });
     paymentHandler.open({
@@ -116,7 +113,6 @@ export class HomeComponent implements OnInit {
     if(amount > 10)
     {
       //this.sendMail(newData);
-
       this.sendMail(newData).subscribe({
         error: (error)=> {
           },
@@ -124,10 +120,6 @@ export class HomeComponent implements OnInit {
         }
 
       });
-
-
-
-
     }
 
   }
