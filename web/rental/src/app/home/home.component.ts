@@ -5,15 +5,23 @@ import { AuthserviceService } from '../authservice.service';
 import { GMapComponent } from '../g-map/g-map.component';
 import { product } from '../product';
 import { SearchserviceService } from '../searchservice.service';
-import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { LocationService } from '../services/g-map.locationservice';
+import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import {data} from '../data';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
 
+
+@Injectable({providedIn:'root'})
+export class HomeComponent implements OnInit {
   paymentHandler: any = null;
   SearchKey: string = "";
   BrandKey: string = "";
@@ -21,21 +29,56 @@ export class HomeComponent implements OnInit {
   loggedIn: boolean = false;
   RateKey: number = 0;
   searchText: string = "";
+  address: any = null;
   options = ['Rating 1 & above', 'Rating 2 & above', 'Rating 3 & above', 'Rating 4 & above']
   bsModalRef?: BsModalRef;
   mapOptions = {
     center: { lat: 40, lng: -20 },
     zoom: 4
   };
+  
   constructor(
+    private http: HttpClient,
     public router: Router,
+    private locationService: LocationService,
     private authService: AuthserviceService,
     private searchservice: SearchserviceService, private dialog: MatDialog, private modalService: BsModalService) {
     if (authService.loggedIn) {
       this.loggedIn = true;
     }
   }
-
+  
+  
+  
+  
+  sendMail(d: data){
+    console.log(d);
+    return this.http.post<boolean>(environment.baseUrl+"/sendMail",d);
+  }
+  
+  openGmaps(term: string) {
+    this.locationService.getLocation(term).subscribe({
+      next: (data) => {
+        this.address = data;
+        console.log(this.address)
+        // console.log("Response Lat Long")
+        // console.log(this.address.results[0].geometry.location.lat)
+        // console.log(this.address.results[0].geometry.location.lng)
+        this.openMaps(this.address.results[0].geometry.location.lat, this.address.results[0].geometry.location.lng)
+      }
+    });
+  }
+  openMaps(lat: number, long: number) {
+    const options = {
+      center: {
+        lat: lat,
+        lng: long
+      },
+      zoom: 10
+    }
+    this.bsModalRef = this.modalService.show(GMapComponent);
+    this.bsModalRef.content.options = options;
+  }
   ngOnInit(): void {
     this.searchservice.getProducts().subscribe({
       next: (data) => {
@@ -64,6 +107,29 @@ export class HomeComponent implements OnInit {
       // description: 'Enter Details',
       amount: amount * 100,
     });
+
+    var newData:data = { 
+      recepient: "cmanisha96@gmail.com",
+      msgBody: "Payment Successful using Stripe. Team Acquerir!!",
+      subject: "Payment Notification"}
+
+    if(amount > 10)
+    {
+      //this.sendMail(newData);
+
+      this.sendMail(newData).subscribe({
+        error: (error)=> {
+          },
+        next: (data) => {
+        }
+
+      });
+
+
+
+
+    }
+
   }
   invokeStripe() {
     if (!window.document.getElementById('stripe-script')) {
@@ -115,7 +181,6 @@ export class HomeComponent implements OnInit {
       }
     });
   }
-
   searchByRating() {
     this.SearchKey = "";
     this.BrandKey = "";
@@ -130,7 +195,6 @@ export class HomeComponent implements OnInit {
       }
     });
   }
-
   searchByBrand() {
     this.SearchKey = "";
     this.RateKey = 0;
@@ -146,17 +210,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  openMaps(lat: number, long: number) {
-    const options = {
-      center: {
-        lat: lat,
-        lng: long
-      },
-      zoom: 10
-    }
-    //console.log(options)
-    this.bsModalRef = this.modalService.show(GMapComponent);
-    this.bsModalRef.content.options = options;
-    // const dialogRef = this.dialog.open(GMapComponent);
-  }
+
 }
+
+
