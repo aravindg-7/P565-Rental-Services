@@ -10,16 +10,17 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   templateUrl: './g-map.component.html',
   styleUrls: ['./g-map.component.css']
 })
-
 export class GMapComponent implements OnInit {
   apiLoaded: Observable<boolean>;
+
   @Input()
   options: google.maps.MapOptions = {
     center: {lat: 40, lng: -20},
     zoom: 11
   };
-  constructor(httpClient: HttpClient, private bsModalRef: BsModalRef) {    
-    this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyCQGgf79Hb4eATPe8wgiPMSC-faO5F5IZs', 'callback')
+
+  constructor(httpClient: HttpClient, private bsModalRef: BsModalRef) {
+    this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=AIzaSyDk7CwIG_nXoTSFQMjaXDX6MM2zD1kGB0g', 'callback')
         .pipe(
           map(() => true),
           catchError(() => of(false)),

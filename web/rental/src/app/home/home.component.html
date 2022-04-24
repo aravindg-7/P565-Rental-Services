@@ -14,12 +14,23 @@
         <div class="col">
             <select [(ngModel)]="SearchKey" (ngModelChange)="searchByCategory()" class="form-control">
                 <option value="" disabled selected>Please select Category</option>
+                <!-- <option *ngFor="let skill of skillList" [value]="skill.name">{{skill.name}}</option> -->
                 <option value="Cars">Cars</option>
                 <option value="Boats">Boats</option>
                 <option value="Services">Services</option>
                 <option value="Apartments">Apartment</option>
             </select>
         </div>
+
+        <!-- <div class="col">
+            <select [(ngModel)]="OwnerKey" (ngModelChange)="searchByOwner()" class="form-control">
+                    <option value="" disabled selected>Please enter Owner</option>
+
+                    <option value="Cars">Cars</option>
+                    <option value="Boats">Boats</option>
+                    <option value="Services">Services</option>
+                    <option value="Planes">Planes</option>
+                </select></div> -->
 
         <div class="col">
             <select [(ngModel)]="BrandKey" (ngModelChange)="searchByBrand()" class="form-control">
@@ -58,6 +69,7 @@
     </div>
 
     <div class="products row" *ngIf="this.productList.length != 0 && this.SearchKey != null">
+        <!-- <div class = "card-deck"> //add style horizontal -->
         <div class="product card cardw" *ngFor="let product of productList | filter:searchText">
             <img class="card-img-top imgsize" src="{{product.image}}" alt="Card image">
             <div class="card-body">
@@ -73,12 +85,20 @@
                 </div>
                 <div class="card-text">
                     <div class="badge bg-primary">Price</div>
-                    <button (click)="makePayment(product.price)" class="btn btn-primary">Pay ${{product.price}}</button>
+                    <!-- <span class="material-icons">attach_money</span> -->
+                    <span class="float-right">${{product.price}}</span>
                 </div>
                 <div class="card-text">
-                    <div class="badge bg-secondary" (click)="openGmaps(product.address)">View on Map</div>
+                    <div class="badge bg-secondary" (click)="openMaps(product.prlat, product.prlong)">View on Map</div>
                 </div>
+                <!-- <button class="btn custbtn mt-3 mb-2" (click)="moreDetails()" *ngIf="this.loggedIn">See more Details</button> -->
+                <!-- //add the google api response component here  -->
             </div>
         </div>
     </div>
 </div>
+
+<!-- </div>     -->
+
+<!-- <g-map [options]="mapOptions">
+</g-map> -->
