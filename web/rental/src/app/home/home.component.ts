@@ -10,7 +10,7 @@ import { LocationService } from '../services/g-map.locationservice';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {data} from '../data';
+import { data } from '../data';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -19,7 +19,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./home.component.css']
 })
 
-@Injectable({providedIn:'root'})
+@Injectable({ providedIn: 'root' })
 export class HomeComponent implements OnInit {
   paymentHandler: any = null;
   SearchKey: string = "";
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     center: { lat: 40, lng: -20 },
     zoom: 4
   };
-  
+
   constructor(
     private http: HttpClient,
     public router: Router,
@@ -46,12 +46,13 @@ export class HomeComponent implements OnInit {
       this.loggedIn = true;
     }
   }
-  
-  sendMail(d: data){
+
+  sendMail(d: data): Observable<any> {
     console.log(d);
-    return this.http.post<boolean>(environment.baseUrl+"/sendMail",d);
+    console.log(environment.baseUrl + "/send/Mail")
+    return this.http.post<boolean>(environment.baseUrl + "/send/Mail", d);
   }
-  
+
   openGmaps(term: string) {
     this.locationService.getLocation(term).subscribe({
       next: (data) => {
@@ -90,12 +91,14 @@ export class HomeComponent implements OnInit {
   }
 
   makePayment(amount: any) {
+    let isPresent:boolean = false;
     const paymentHandler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_51KmST7DfkwakJlGdB2G2VHswVU5cGa1zWYdMGh2hgwVMsQyOgT0dgrIgdBrR5KRQxgPYL9zNhvItfQ50TfyHzxnl005YXFQU0N',
       locale: 'auto',
       token: function (stripeToken: any) {
         //console.log(stripeToken);
         alert('Payment Successful!');
+        isPresent=true;
       },
     });
     paymentHandler.open({
@@ -104,22 +107,24 @@ export class HomeComponent implements OnInit {
       amount: amount * 100,
     });
 
-    var newData:data = { 
-      recepient: "cmanisha96@gmail.com",
+    var newData: data = {
+      recipient: "cmanisha96@gmail.com",
       msgBody: "Payment Successful using Stripe. Team Acquerir!!",
-      subject: "Payment Notification"}
+      subject: "Payment Notification"
+    }
 
-    if(amount > 10)
-    {
-      //this.sendMail(newData);
+    // if (isPresent=true) {
+      // this.sendMail(newData);
       this.sendMail(newData).subscribe({
-        error: (error)=> {
-          },
+        error: (error) => {
+          console.log(error)
+        },
         next: (data) => {
+          console.log(data)
         }
 
       });
-    }
+    // }
 
   }
   invokeStripe() {
@@ -147,8 +152,7 @@ export class HomeComponent implements OnInit {
     this.BrandKey = "";
     this.searchservice.getProductByCategory(this.SearchKey).subscribe({
       next: (data) => {
-        this.productList = data;
-        // console.log(data)  
+        this.productList = data;  
       },
       error: (error) => {
         console.log(error);
@@ -162,8 +166,7 @@ export class HomeComponent implements OnInit {
     this.BrandKey = "";
     this.searchservice.getProducts().subscribe({
       next: (data) => {
-        this.productList = data;
-        // console.log(data)  
+        this.productList = data; 
       },
       error: (error) => {
         console.log(error);
