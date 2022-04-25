@@ -1,10 +1,16 @@
 package com.rental.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -44,9 +50,69 @@ public class Product {
 	@Column(name = "pr_lat")
 	private float prlat;
 	
+	@Column(name = "pr_status")
+	private boolean available;
+	
+	@Column(name = "pr_reviews")
+	private int noofreview;
+	
+	public int getNoofreview() {
+		return noofreview;
+	}
+
+	public void setNoofreview(int noofreview) {
+		this.noofreview = noofreview;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "req_us_id")
+	private User renterId;
+	
+	@ManyToMany
+	 @JoinTable(name = "order_us_pr",
+	 			joinColumns = @JoinColumn(name = "or_pr_id"), 
+	 			inverseJoinColumns = @JoinColumn(name = "or_us_id"))
+	 private List<User> prev_renters;
+	
+//	public User getOwnerId() {
+//		return ownerId;
+//	}
+
+//	public List<User> getPrev_renters() {
+//		return prev_renters;
+//	}
+
+	public void setPrev_renters(List<User> prev_renters) {
+		this.prev_renters = prev_renters;
+	}
+
+	public void setOwnerId(User ownerId) {
+		this.ownerId = ownerId;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "pr_us_id")
+	private User ownerId;
+	
 	//TODO add userlist and join
 	
 	
+
+//	public User getRenterId() {
+//		return renterId;
+//	}
+
+	public void setRenterId(User renterId) {
+		this.renterId = renterId;
+	}
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
 
 	public String getProductName() {
 		return productName;

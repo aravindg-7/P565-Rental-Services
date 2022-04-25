@@ -6,6 +6,7 @@ import { GMapComponent } from '../g-map/g-map.component';
 import { product } from '../product';
 import { SearchserviceService } from '../searchservice.service';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { BookingService } from '../booking.service';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +17,11 @@ export class HomeComponent implements OnInit {
 
   SearchKey: string = "";
   BrandKey: string = "";
+  loggedInuser:string = "";
   productList: product[] = [];
-  loggedIn: boolean = false;
+  isLoggedIn: boolean = false;
+  isUser:boolean = false;
+  showrec:boolean = false;
   RateKey: number = 0;
   searchText: string = "";
   options = ['Rating 1 & above', 'Rating 2 & above', 'Rating 3 & above', 'Rating 4 & above']
@@ -29,10 +33,11 @@ export class HomeComponent implements OnInit {
   constructor(
     public router: Router,
     private authService: AuthserviceService,
-    private searchservice: SearchserviceService, private dialog: MatDialog, private modalService: BsModalService) {
-    if (authService.loggedIn) {
-      this.loggedIn = true;
-    }
+    private searchservice: SearchserviceService, private dialog: MatDialog, private modalService: BsModalService,
+    private bookingservice: BookingService) {
+    // if (authService.loggedIn) {
+    //   this.loggedIn = true;
+    // }
   }
 
   ngOnInit(): void {
@@ -122,4 +127,47 @@ export class HomeComponent implements OnInit {
     this.bsModalRef.content.options = options;
     // const dialogRef = this.dialog.open(GMapComponent);
   }
+  getrec()
+  {
+    this.bookingservice.getrecommendations(this.loggedInuser).subscribe({
+      next: (data) => {
+        this.productList = data;
+        // console.log(data)  
+      },
+      error: (error) => {
+        console.log(error);
+
+      }
+    });
+  }
+  book(id:number) {
+
+    // this.bookingservice.book(this.loggedInuser,id);
+    this.bookingservice.book(this.loggedInuser,id).subscribe({
+      next: (data) => {
+        console.log(data)
+        this.router.navigate(['cart'])  
+      },
+      error: (error) => {
+        console.log(error);
+
+      }
+    });
+
+  }
+  loggedIn():boolean {
+    if(this.authService.loggedIn){
+      this.isLoggedIn = true;
+      this.loggedInuser = this.authService.loggedInUser;
+      this.isUser = this.authService.isUser;
+      // console.log(this.authService.isUser)
+      return true
+    }
+    else{
+      this.isLoggedIn = false;
+      return false;
+    }
+  }
+
+
 }

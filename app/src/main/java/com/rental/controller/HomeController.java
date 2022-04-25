@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rental.service.ProductService;
+import com.rental.model.Complaint;
 import com.rental.model.Product;
 
 
@@ -43,6 +44,7 @@ public class HomeController {
 		return prodservice.getByRating(id);
 	}
 	
+	
 //	@GetMapping("/owner/{id}")
 //	public List<Product> getByOwner(@PathVariable String id){
 //		return prodservice.getByOwner(id);
@@ -51,6 +53,11 @@ public class HomeController {
 	@GetMapping("/brand/{id}")
 	public List<Product> getByBrand(@PathVariable String id){
 		return prodservice.getByBrand(id);
+	}
+	
+	@GetMapping("/comp")
+	public List<Complaint> getComp(){
+		return prodservice.getcomplaint();
 	}
 
 }

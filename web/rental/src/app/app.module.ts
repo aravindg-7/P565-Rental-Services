@@ -14,9 +14,16 @@ import { GMapComponent } from './g-map/g-map.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 
 import {MatDialogModule} from '@angular/material/dialog';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { CartComponent } from './cart/cart.component';
+import { RatingComponent } from './rating/rating.component';
+import { ComplainComponent } from './complain/complain.component';
+import { ChatComponent } from './chat/chat.component';
+import { ViewcompComponent } from './viewcomp/viewcomp.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +33,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     LoginComponent,
     SignupComponent,
     AddproductComponent,
-    GMapComponent
+    GMapComponent,
+    CartComponent,
+    RatingComponent,
+    ComplainComponent,
+    ChatComponent,
+    ViewcompComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +53,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     HttpClientJsonpModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    MdbModalModule,
     ModalModule.forRoot()
   ],
   providers: [],

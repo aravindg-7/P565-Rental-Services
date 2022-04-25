@@ -54,6 +54,7 @@
                 </ng-container>
             </select>
         </div>
+        <div class="col" *ngIf = loggedIn()><button (click)="getrec()" class="btn refreshbtn">Recommendations</button></div>
         <div class="col"><button (click)="refresh()" class="btn refreshbtn"><span
                     class="material-icons">refresh</span></button></div>
     </div>
@@ -89,9 +90,9 @@
                     <span class="float-right">${{product.price}}</span>
                 </div>
                 <div class="card-text">
-                    <div class="badge bg-secondary" (click)="openMaps(product.prlat, product.prlong)">View on Map</div>
+                    <div class="badge bg-secondary mapb" (click)="openMaps(product.prlat, product.prlong)">View on Map</div>
                 </div>
-                <!-- <button class="btn custbtn mt-3 mb-2" (click)="moreDetails()" *ngIf="this.loggedIn">See more Details</button> -->
+                <button class="btn custbtn mt-3 mb-2" (click)="book(product.id)" *ngIf="loggedIn() && isUser">Book now</button>
                 <!-- //add the google api response component here  -->
             </div>
         </div>

@@ -23,6 +23,10 @@
 	color: #FFFFFF;
 }
 
+.mapb:hover {
+	cursor: pointer;
+}
+
 .page-footer {
 	overflow: hidden;
 	position: fixed;

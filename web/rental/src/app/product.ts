@@ -1,4 +1,5 @@
 export interface product {
+    id?:number;
     category:string;
     productName:string;
     image:string;
@@ -8,4 +9,6 @@ export interface product {
     owner:string;
     prlat:number;
     prlong:number;
+    available:boolean;
+    // nofreviews?:number;
 }
