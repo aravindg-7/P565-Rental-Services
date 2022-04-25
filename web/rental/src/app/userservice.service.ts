@@ -3,6 +3,7 @@ import { user } from './user';
 import { product } from './product';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,7 @@ export class UserserviceService {
 
   constructor(private http: HttpClient) { }
 
-  addUser(newUser: user) {
-
-    console.log(newUser);
+  addUser(newUser: user):Observable<any> {
     return this.http.post<boolean>(environment.baseUrl+"/users",newUser);
 
   }

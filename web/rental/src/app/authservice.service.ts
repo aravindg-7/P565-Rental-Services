@@ -17,6 +17,8 @@ export class AuthserviceService {
   googleuser:any;
   validCredentials: boolean=true;
   isAdmin: boolean=false;
+  isOwner:boolean = false;
+  isUser:boolean = false;
   loggedIn: boolean=false;
   private accessToken: any;
   error: any;
@@ -29,7 +31,7 @@ export class AuthserviceService {
   authenticate(user:string,password:string):Observable<any> {
     let credentials = btoa(user+':'+password);
     let headers = new HttpHeaders();
-    console.log(credentials);
+    // console.log(credentials);
     headers = headers.set('Authorization', 'Basic '+credentials)
     return this.httpClient.get(environment.baseUrl+"/authenticate", {headers})
   }
@@ -56,10 +58,20 @@ export class AuthserviceService {
           this.userId=user.username;
           this.validCredentials = true;
           if(data.role == 'ADMIN')
+          {
             this.isAdmin = true;
+          }
+          if(data.role == 'OWNER')
+          {
+            this.isOwner = true;
+          }
+          if(data.role == 'USER' || data.role == 'GOOGLE_USER')
+          {
+            this.isUser = true;
+          }
           this.loggedIn = true;
           this.accessToken=data.token;
-          console.log(this.accessToken)
+          // console.log(this.accessToken)
           this.router.navigate(['home']);
         },
         error: (error)=>{
@@ -76,9 +88,12 @@ export class AuthserviceService {
       }
 
       logout() {
+        console.log("logout")
         // let cartservice:CartService
         this.loggedInUser = "";
         this.isAdmin = false;
+        this.isUser = false;
+        this.isOwner = false;
         this.loggedIn = false;
         this.userId=null;
         this.role=null;

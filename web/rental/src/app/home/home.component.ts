@@ -13,6 +13,8 @@ import { Injectable } from '@angular/core';
 import { data } from '../data';
 import { environment } from 'src/environments/environment';
 
+import { BookingService } from '../booking.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -24,8 +26,11 @@ export class HomeComponent implements OnInit {
   paymentHandler: any = null;
   SearchKey: string = "";
   BrandKey: string = "";
+  loggedInuser:string = "";
   productList: product[] = [];
-  loggedIn: boolean = false;
+  isLoggedIn: boolean = false;
+  isUser:boolean = false;
+  showrec:boolean = false;
   RateKey: number = 0;
   searchText: string = "";
   address: any = null;
@@ -41,10 +46,11 @@ export class HomeComponent implements OnInit {
     public router: Router,
     private locationService: LocationService,
     private authService: AuthserviceService,
-    private searchservice: SearchserviceService, private dialog: MatDialog, private modalService: BsModalService) {
-    if (authService.loggedIn) {
-      this.loggedIn = true;
-    }
+    private searchservice: SearchserviceService, private dialog: MatDialog, private modalService: BsModalService,
+    private bookingservice: BookingService) {
+    // if (authService.loggedIn) {
+    //   this.loggedIn = true;
+    // }
   }
 
   sendMail(d: data): Observable<any> {
@@ -201,6 +207,61 @@ export class HomeComponent implements OnInit {
 
       }
     });
+  }
+
+  // openMaps(lat: number, long: number) {
+  //   const options = {
+  //     center: {
+  //       lat: lat,
+  //       lng: long
+  //     },
+  //     zoom: 10
+  //   }
+  //   //console.log(options)
+  //   this.bsModalRef = this.modalService.show(GMapComponent);
+  //   this.bsModalRef.content.options = options;
+  //   // const dialogRef = this.dialog.open(GMapComponent);
+  // }
+  getrec()
+  {
+    this.bookingservice.getrecommendations(this.loggedInuser).subscribe({
+      next: (data) => {
+        this.productList = data;
+        // console.log(data)  
+      },
+      error: (error) => {
+        console.log(error);
+
+      }
+    });
+  }
+  book(id:number) {
+
+    // this.bookingservice.book(this.loggedInuser,id);
+    this.bookingservice.book(this.loggedInuser,id).subscribe({
+      next: (data) => {
+        console.log(data)
+        this.router.navigate(['cart'])  
+      },
+      error: (error) => {
+        console.log(error);
+
+      }
+    });
+
+  }
+  loggedIn():boolean {
+    if(this.authService.loggedIn){
+      this.isLoggedIn = true;
+      this.loggedInuser = this.authService.loggedInUser;
+      this.isUser = this.authService.isUser;
+      // console.log(this.authService.isUser)
+      return true
+    }
+    else{
+      this.isLoggedIn = false;
+      return false;
+    }
   }
 
 

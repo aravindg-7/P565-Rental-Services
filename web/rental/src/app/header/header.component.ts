@@ -12,12 +12,16 @@ export class HeaderComponent implements OnInit {
   constructor(public router: Router,private authService:AuthserviceService) { }
   isLoggedIn:boolean = false
   loggedInuser:string = "";
+  isUser:boolean = false;
+  isAdmin:boolean = false;
   ngOnInit(): void {
   }
   loggedIn():boolean {
     if(this.authService.loggedIn){
       this.isLoggedIn = true;
       this.loggedInuser = this.authService.loggedInUser;
+      this.isUser  = this.authService.isUser;
+      this.isAdmin = this.authService.isAdmin;
       return true
     }
     else{

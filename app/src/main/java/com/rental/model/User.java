@@ -2,12 +2,19 @@ package com.rental.model;
 
 
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name="user")
@@ -50,8 +57,44 @@ public class User {
 	@Column(name="us_pincode")
 	private int pincode;
 	
+	@OneToMany(mappedBy = "renterId",cascade=CascadeType.ALL)
+    private List<Product> bookings;
+	
+	@OneToMany(mappedBy = "ownerId",cascade=CascadeType.ALL)
+    private List<Product> products;
+	
+	@ManyToMany
+    @JoinTable(name = "order_us_pr",
+        joinColumns = @JoinColumn(name = "or_us_id"), 
+        inverseJoinColumns = @JoinColumn(name = "or_pr_id"))
+	private List<Product> prev_products;
+	
 	public String getContact() {
 		return contact;
+	}
+
+	public List<Product> getPrev_products() {
+		return prev_products;
+	}
+
+	public void setPrev_products(List<Product> prev_products) {
+		this.prev_products = prev_products;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	public List<Product> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Product> bookings) {
+		this.bookings = bookings;
 	}
 
 	public void setContact(String contact) {
